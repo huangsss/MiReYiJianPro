@@ -18,7 +18,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
- * 欢迎界面
+ * 使用RxJava实现倒计时跳转至首页;
  *
  * @date 2017
  */
@@ -32,7 +32,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        mTvTime = (TextView) findViewById(R.id.tv_guide_time);
+        mTvTime = findViewById(R.id.tv_guide_time);
         mImageView = findViewById(R.id.iv_guide_skip);
         mImageView.setOnClickListener(this);
         mTvTime.setText(max + " s");
@@ -62,7 +62,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         startActivity(new Intent(GuideActivity.this, MainActivity.class));
-        mSubscribe.dispose();
+        mSubscribe.dispose();//取消订阅
         finish();
     }
 

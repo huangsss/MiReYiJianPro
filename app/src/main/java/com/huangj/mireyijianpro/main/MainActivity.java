@@ -31,6 +31,9 @@ import com.huangj.mireyijianpro.read.ReadFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 主界面;
+ */
 public class MainActivity extends AppCompatActivity {
     private final int NAVIGATION_HOME = 0;
     private final int NAVIGATION_READ = 1;
@@ -110,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mDrawer = (DrawerLayout) findViewById(R.id.drawlayout);
         mRvDrawList = (RecyclerView) findViewById(R.id.recyclerview_drawerlist);
-        mDrawer.setScrimColor(Color.TRANSPARENT);
-        mDrawer.setDrawerElevation(0);
+        mDrawer.setScrimColor(Color.TRANSPARENT);//透明;
+        mDrawer.setDrawerElevation(0);//默认选中Home;
     }
 
     /**
