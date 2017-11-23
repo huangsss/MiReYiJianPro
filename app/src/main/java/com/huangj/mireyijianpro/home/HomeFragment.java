@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +39,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
 
     protected Activity mContext;
-    /**
-     * 整个布局
-     */
+
     private View mView;
     protected EmptyRecyclerView mRecyclerView;
     private Disposable mDisposable;//RxJava取消订阅;
@@ -110,6 +111,22 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        mHomeAdapter = new HomeAdapter(mList, mContext);
+        mRecyclerView.setAdapter(mHomeAdapter);
+        mRecyclerView.setEmptyView(mEmptyView);
+        mRecyclerView.hideEmptyView();
+        mRecyclerView.addOnScrollListener(new RecyclerViewScrollListener());
+        mHomeAdapter.setAdapterOnClick(new HomeAdapter.AdapterOnClick() {
+            @Override
+            public void setImageOnClick(GankModel.ResultsBean bean, int position) {
+                ToastUtils.showShort("点击图片");
+            }
+
+            @Override
+            public void setItemOnClick(GankModel.ResultsBean bean, int position) {
+                ToastUtils.showShort("点击条目");
+            }
+        });
     }
 
     /**
@@ -137,21 +154,32 @@ public class HomeFragment extends Fragment implements HomeContract.View {
                         }
                         if (type == Constant.GET_DATA_TYPE_NOMAL) {
                             //刷新;
-
+                            mList.clear();
+                            mList = gankModel.getResults();
                         } else {
                             //加载更多
-                            
+                            mList.addAll(gankModel.getResults());
                         }
+                        if (gankModel.getResults().size() < Constant.PAGE_SIZE) {
+                            //不足一页;
+                            mIsLoadMore = false;
+                        }
+                        mHomeAdapter.setList(mList);
+                        mHomeAdapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        stopRefresh();
+                        hideLoading();
+                        stopLoadingMore();
                     }
 
                     @Override
                     public void onComplete() {
-
+                        stopRefresh();
+                        hideLoading();
+                        stopLoadingMore();
                     }
                 });
 
@@ -171,18 +199,61 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     @Override
     public void stopRefresh() {
-
+        if (mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void startLoadingMore() {
-
+        mLayoutLoadMore.setVisibility(View.VISIBLE);
+        mAviLoadMore.smoothToShow();
     }
 
     @Override
     public void stopLoadingMore() {
-
+        mLayoutLoadMore.setVisibility(View.GONE);
+        if (mAviLoadMore.isShown()) {
+            mAviLoadMore.smoothToHide();
+        }
     }
 
+    /**
+     * 滑动监听;
+     */
+    class RecyclerViewScrollListener extends RecyclerView.OnScrollListener {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            int lastPosition = -1;
+            //当前状态停止
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager) {
+                    lastPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                }
+                //判断当前列表是否滑动到底部;
+                if (!mRecyclerView.canScrollVertically(1)) {
+                    //滑动到底部,需触发上拉加载;
+                    mRecyclerView.smoothScrollToPosition(lastPosition);
+                    if (!mIsLoadMore) {
+                        ToastUtils.showShort("无更多数据");
+                        return;
+                    }
+                    startLoadingMore();
+                    mPage++;
+                    getData(Constant.GET_DATA_TYPE_LOADMORE);
+                }
+            }
+        }
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (!mDisposable.isDisposed()) {
+            Log.d("print", "onDestroy: 未取消订阅则取消订阅");
+            mDisposable.dispose();
+        }
+    }
 }

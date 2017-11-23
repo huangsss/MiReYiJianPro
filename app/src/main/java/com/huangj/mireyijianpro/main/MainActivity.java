@@ -184,35 +184,35 @@ public class MainActivity extends AppCompatActivity {
         mDrawListAdapter.setmOnMainDrawClickListener(new MainDrawListAdapter.OnMainDrawClickListener() {
             @Override
             public void onClick(int position) {
-                String categroy = Constant.CATEGORY_ALL;
+                String category = Constant.CATEGORY_ALL;
                 switch (mListDrawModel.get(position).getTitle()) {
                     case "iOS":
-                        categroy = Constant.CATEGORY_IOS;
-                        showCategoryInfo(categroy);
+                        category = Constant.CATEGORY_IOS;
+                        showCategoryInfo(category);
                         break;
                     case "前端":
-                        categroy = Constant.CATEGORY_CLIENT;
-                        showCategoryInfo(categroy);
+                        category = Constant.CATEGORY_CLIENT;
+                        showCategoryInfo(category);
                         break;
                     case "瞎推荐":
-                        categroy = Constant.CATEGROY_RECOMMEND;
-                        showCategoryInfo(categroy);
+                        category = Constant.CATEGROY_RECOMMEND;
+                        showCategoryInfo(category);
                         break;
                     case "App":
-                        categroy = Constant.CATEGORY_APP;
-                        showCategoryInfo(categroy);
+                        category = Constant.CATEGORY_APP;
+                        showCategoryInfo(category);
                         break;
                     case "拓展资源":
-                        categroy = Constant.CATEGORY_EXPANDRESOURCE;
-                        showCategoryInfo(categroy);
+                        category = Constant.CATEGORY_EXPANDRESOURCE;
+                        showCategoryInfo(category);
                         break;
                     case "休息视频":
-                        categroy = Constant.CATEGORY_VIDEO;
-                        showCategoryInfo(categroy);
+                        category = Constant.CATEGORY_VIDEO;
+                        showCategoryInfo(category);
                         break;
                     case "福利":
-                        categroy = Constant.CATEGORY_GIRL;
-                        showCategoryInfo(categroy);
+                        category = Constant.CATEGORY_GIRL;
+                        showCategoryInfo(category);
                         break;
                 }
                 mDrawer.closeDrawer(GravityCompat.START);

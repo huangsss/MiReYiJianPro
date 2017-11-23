@@ -14,8 +14,6 @@ public interface HomeContract {
         //关闭加载动画
         void hideLoading();
 
-        //开启下拉刷新
-        //void startRefush();
 
         //关闭下拉刷新
         void stopRefresh();

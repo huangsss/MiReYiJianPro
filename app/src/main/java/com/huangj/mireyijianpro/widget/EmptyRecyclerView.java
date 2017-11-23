@@ -34,8 +34,8 @@ public class EmptyRecyclerView extends RecyclerView {
      * 根据数据源判断是否为空;
      */
     private void checkIfEmpty() {
-        if (mEmptyView != null && getAdapter() != null) {
-            mEmptyView.setVisibility(getAdapter().getItemCount() > 0 ? VISIBLE : GONE);
+        if (mEmptyView != null || getAdapter() != null) {
+            mEmptyView.setVisibility(getAdapter().getItemCount() > 0 ? GONE : VISIBLE);
         }
     }
 
@@ -58,7 +58,7 @@ public class EmptyRecyclerView extends RecyclerView {
         }
         super.setAdapter(adapter);
         if (adapter != null) {
-            adapterOld.registerAdapterDataObserver(mObserver);
+            adapter.registerAdapterDataObserver(mObserver);
         }
     }
 
