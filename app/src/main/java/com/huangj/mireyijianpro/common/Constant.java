@@ -23,4 +23,8 @@ public class Constant {
     public static final int GET_DATA_TYPE_NOMAL = 0;
     public static final int GET_DATA_TYPE_LOADMORE = 1;
 
+
+    public static final String ResultsBean = "ResultsBean";
+
+
 }

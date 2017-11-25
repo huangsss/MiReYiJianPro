@@ -1,12 +1,13 @@
 package com.huangj.mireyijianpro.home.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by huangasys on 2017/11/22.15:14
  */
 
-public class GankModel {
+public class GankModel implements Serializable {
 
 
     /**
@@ -33,7 +34,7 @@ public class GankModel {
         this.results = results;
     }
 
-    public static class ResultsBean {
+    public static class ResultsBean implements Serializable{
         /**
          * _id : 5a123f78421aa90fe50c0221
          * createdAt : 2017-11-20T10:35:36.599Z

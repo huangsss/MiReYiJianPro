@@ -1,4 +1,4 @@
-package com.huangj.mireyijianpro.home;
+package com.huangj.mireyijianpro.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -21,19 +21,19 @@ import java.util.List;
  * Created by huangasys on 2017/11/22.15:19
  */
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class BaseAdapter extends RecyclerView.Adapter<BaseAdapter.ViewHolder> {
 
     private List<GankModel.ResultsBean> mList;
     private Context mContext;
     private AdapterOnClick mAdapterOnClick;
 
-    interface AdapterOnClick {
+    public interface AdapterOnClick {
         void setImageOnClick(GankModel.ResultsBean bean, int position);
 
         void setItemOnClick(GankModel.ResultsBean bean, int position);
     }
 
-    public HomeAdapter(List<GankModel.ResultsBean> list, Context context) {
+    public BaseAdapter(List<GankModel.ResultsBean> list, Context context) {
         this.mList = list;
         this.mContext = context;
     }

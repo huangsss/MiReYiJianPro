@@ -33,7 +33,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:padding="12dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/avi_loadmore"

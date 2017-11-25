@@ -1,6 +1,7 @@
 package com.huangj.mireyijianpro.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.huangj.mireyijianpro.common.Constant;
 import com.huangj.mireyijianpro.home.HomeFragment;
 import com.huangj.mireyijianpro.home.model.DrawModel;
 import com.huangj.mireyijianpro.me.MeFragment;
+import com.huangj.mireyijianpro.othercategory.OtherCategoryActivity;
 import com.huangj.mireyijianpro.read.ReadFragment;
 
 import java.util.ArrayList;
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
      * 初始化Toolbar信息
      */
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -108,11 +111,11 @@ public class MainActivity extends AppCompatActivity {
      * 初始化控件
      */
     private void initView() {
-        mBottomNavigation = (BottomNavigationView) findViewById(R.id.navigation);
-        mVpMain = (ViewPager) findViewById(R.id.vp_main);
+        mBottomNavigation = findViewById(R.id.navigation);
+        mVpMain = findViewById(R.id.vp_main);
         mBottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawlayout);
-        mRvDrawList = (RecyclerView) findViewById(R.id.recyclerview_drawerlist);
+        mDrawer = findViewById(R.id.drawlayout);
+        mRvDrawList = findViewById(R.id.recyclerview_drawerlist);
         mDrawer.setScrimColor(Color.TRANSPARENT);//透明;
         mDrawer.setDrawerElevation(0);//默认选中Home;
     }
@@ -184,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawListAdapter.setmOnMainDrawClickListener(new MainDrawListAdapter.OnMainDrawClickListener() {
             @Override
             public void onClick(int position) {
-                String category = Constant.CATEGORY_ALL;
+                String category;
                 switch (mListDrawModel.get(position).getTitle()) {
                     case "iOS":
                         category = Constant.CATEGORY_IOS;
@@ -220,12 +223,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main_toolbar, menu);
         mMenu = menu;
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -235,11 +238,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 跳转到分类展示界面
-     *
-     * @param categroy
      */
-    private void showCategoryInfo(String categroy) {
-        Toast.makeText(this, "跳转分类：" + categroy, Toast.LENGTH_SHORT).show();
+    private void showCategoryInfo(String category) {
+        Intent intent = new Intent(this, OtherCategoryActivity.class);
+        intent.putExtra("category", category);
+        startActivity(intent);
     }
 
     private class MainAdapter extends FragmentPagerAdapter {

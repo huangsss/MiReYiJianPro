@@ -1,13 +1,12 @@
-package com.huangj.mireyijianpro.home;
+package com.huangj.mireyijianpro.base;
 
 /**
- * @author Leon
- * @date
+ * Created by huangasys on 2017/11/25.14:12
  */
 
-public interface HomeContract {
+public interface BaseView {
 
-    interface View {
+    interface isView {
         //开启加载动画
         void showLoading();
 
@@ -24,6 +23,5 @@ public interface HomeContract {
         //开启加载更多
         void stopLoadingMore();
     }
-
 
 }
