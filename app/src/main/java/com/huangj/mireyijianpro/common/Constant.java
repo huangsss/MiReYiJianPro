@@ -26,5 +26,8 @@ public class Constant {
 
     public static final String ResultsBean = "ResultsBean";
 
-
+    //正常模式
+    public static final int ITEM_TYPE_TEXT = 0;
+    //福利模式
+    public static final int ITEM_TYPE_IMAGE = 1;
 }

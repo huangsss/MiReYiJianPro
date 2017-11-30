@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.huangj.mireyijianpro.R;
 import com.huangj.mireyijianpro.common.Constant;
+import com.huangj.mireyijianpro.girl.GirlActivity;
 import com.huangj.mireyijianpro.home.HomeFragment;
 import com.huangj.mireyijianpro.home.model.DrawModel;
 import com.huangj.mireyijianpro.me.MeFragment;
@@ -214,8 +215,7 @@ public class MainActivity extends AppCompatActivity {
                         showCategoryInfo(category);
                         break;
                     case "福利":
-                        category = Constant.CATEGORY_GIRL;
-                        showCategoryInfo(category);
+                        startActivity(new Intent(MainActivity.this, GirlActivity.class));
                         break;
                 }
                 mDrawer.closeDrawer(GravityCompat.START);

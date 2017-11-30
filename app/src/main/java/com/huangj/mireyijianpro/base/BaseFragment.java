@@ -62,7 +62,6 @@ public abstract class BaseFragment extends Fragment implements BaseView.isView {
     protected boolean mIsLoadMore = true;
     protected int mPage = 1;
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -83,6 +82,7 @@ public abstract class BaseFragment extends Fragment implements BaseView.isView {
         super.onViewCreated(view, savedInstanceState);
         initView(view);//初始化布局;
         initItemListener();
+        initOptions(view);
         if (isConnected()) {
             //是否联网;
             showLoading();
@@ -90,6 +90,12 @@ public abstract class BaseFragment extends Fragment implements BaseView.isView {
         }
     }
 
+    /**
+     * 实现各自的业务操作，由子类实现
+     */
+    protected void initOptions(View view) {
+
+    }
 
 
     private void initView(View view) {
@@ -111,15 +117,30 @@ public abstract class BaseFragment extends Fragment implements BaseView.isView {
             }
         });
         //设置布局类型
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(initLayoutManager());
 
-        mBaseAdapter = new BaseAdapter(mList, mContext);
+        mBaseAdapter = new BaseAdapter(mList, mContext,initItemType());
         mRecyclerView.setAdapter(mBaseAdapter);
         mRecyclerView.setEmptyView(mEmptyView);
         mRecyclerView.hideEmptyView();
         //上拉加载监听;
         mRecyclerView.addOnScrollListener(new RecyclerViewScrollListener());
+    }
+
+    /**
+     * 初始化列表的LayoutManager，默认提供线性LinearLayoutManager
+     * 如果有其他布局，由子类实现
+     *
+     */
+    protected RecyclerView.LayoutManager initLayoutManager() {
+        return new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+    }
+
+    /**
+     * 初始化类型,传入适配器;
+     */
+    protected int initItemType() {
+        return Constant.ITEM_TYPE_TEXT;
     }
 
     /**
