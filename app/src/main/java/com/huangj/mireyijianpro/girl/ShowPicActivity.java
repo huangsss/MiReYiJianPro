@@ -1,15 +1,11 @@
 package com.huangj.mireyijianpro.girl;
 
 import android.graphics.Bitmap;
-import android.renderscript.RSRuntimeException;
 import android.support.v4.view.ViewPager;
-import android.test.mock.MockContext;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.ImageUtils;

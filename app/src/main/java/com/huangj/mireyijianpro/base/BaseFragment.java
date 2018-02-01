@@ -62,6 +62,7 @@ public abstract class BaseFragment extends Fragment implements BaseView.isView {
     protected boolean mIsLoadMore = true;
     protected int mPage = 1;
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -99,6 +100,7 @@ public abstract class BaseFragment extends Fragment implements BaseView.isView {
 
 
     private void initView(View view) {
+
         mRecyclerView = view.findViewById(R.id.fragment_recyclerview);
         mEmptyView = view.findViewById(R.id.empty_view);
         mRefreshLayout = view.findViewById(R.id.refreshlayout);
@@ -125,6 +127,8 @@ public abstract class BaseFragment extends Fragment implements BaseView.isView {
         mRecyclerView.hideEmptyView();
         //上拉加载监听;
         mRecyclerView.addOnScrollListener(new RecyclerViewScrollListener());
+
+
     }
 
     /**

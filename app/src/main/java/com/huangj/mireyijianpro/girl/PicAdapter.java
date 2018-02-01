@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.huangj.mireyijianpro.common.Constant;
 import com.huangj.mireyijianpro.image.ImageManager;
 
 import java.util.List;
